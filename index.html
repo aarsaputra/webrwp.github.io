@@ -42,9 +42,9 @@
 <body>
   <!-- Loading Overlay -->
   <div class="loading-overlay" id="loadingOverlay">
-    <div class="spinner-border text-danger" role="status" style="width: 3rem; height: 3rem;">
-      <span class="visually-hidden">Loading...</span>
-    </div>
+    <video class="loading-video" autoplay muted loop playsinline>
+      <source src="Loading-Video.webm" type="video/webm">
+    </video>
   </div>
 
   <!-- Popup Brosur (Hidden by default, triggered by scroll/delay) -->
@@ -739,11 +739,16 @@
       const popup = document.getElementById("popupContainer");
       const closeBtn = document.getElementById("closePopupBtn");
 
-      // Hide loader fast
-      setTimeout(() => {
+      // Dismiss loading overlay: whichever comes first — page loaded OR 3s timeout
+      function hideLoader() {
         loader.classList.add("fade-out");
-        setTimeout(() => loader.style.display = "none", 500);
-      }, 800);
+        setTimeout(() => loader.style.display = "none", 600);
+      }
+      const loaderTimeout = setTimeout(hideLoader, 3000);
+      window.addEventListener("load", () => {
+        clearTimeout(loaderTimeout);
+        hideLoader();
+      });
 
       // Show popup after scrolling or delay
       let popupShown = false;
