@@ -739,16 +739,33 @@
       const popup = document.getElementById("popupContainer");
       const closeBtn = document.getElementById("closePopupBtn");
 
-      // Dismiss loading overlay: whichever comes first — page loaded OR 3s timeout
+      // Wait for video to finish playing, THEN hide the overlay
+      const loadingVideo = loader.querySelector(".loading-video");
       function hideLoader() {
         loader.classList.add("fade-out");
         setTimeout(() => loader.style.display = "none", 600);
       }
-      const loaderTimeout = setTimeout(hideLoader, 3000);
-      window.addEventListener("load", () => {
-        clearTimeout(loaderTimeout);
+
+      // Fallback: hide after 8s max (in case video errors or stalls)
+      const fallbackTimer = setTimeout(hideLoader, 8000);
+
+      if (loadingVideo) {
+        // Hide when video naturally ends
+        loadingVideo.addEventListener("ended", () => {
+          clearTimeout(fallbackTimer);
+          hideLoader();
+        });
+
+        // If video can't load/play at all, fall through to fallback
+        loadingVideo.addEventListener("error", () => {
+          clearTimeout(fallbackTimer);
+          hideLoader();
+        });
+      } else {
+        // No video element found — hide immediately
+        clearTimeout(fallbackTimer);
         hideLoader();
-      });
+      }
 
       // Show popup after scrolling or delay
       let popupShown = false;
