@@ -1,8 +1,8 @@
 /* =========================================
-   CUSTOM CSS — Minimal (Tailwind companion)
+   CUSTOM CSS — Tailwind Companion
+   Mobile-First Responsive
    ========================================= */
 
-/* Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 /* ---- LOADING OVERLAY ---- */
@@ -17,16 +17,32 @@
   overflow: hidden;
 }
 
+/* Video scales correctly on ALL screen sizes */
 .loading-video {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
+  /* On mobile: fill width, let height follow */
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  object-position: center;
+}
+
+/* Branding overlay at bottom of loading screen */
+.loading-branding {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  /* Push to bottom */
+  position: absolute;
+  bottom: 32px;
+  left: 0;
+  right: 0;
 }
 
 /* ---- POPUP ---- */
@@ -46,7 +62,7 @@
 
 .popup-box {
   position: relative;
-  width: min(480px, 90%);
+  width: min(480px, 92%);
   transform: scale(0.88);
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   border-radius: 16px;
@@ -84,8 +100,6 @@
 .navbar-scrolled {
   background: rgba(13, 13, 13, 0.97) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  padding-top: 8px !important;
-  padding-bottom: 8px !important;
 }
 
 .nav-link {
@@ -95,8 +109,9 @@
   padding: 8px 12px;
   border-radius: 8px;
   position: relative;
-  transition: color 0.2s ease, background 0.2s ease;
+  transition: color 0.2s ease;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .nav-link::after {
@@ -120,15 +135,17 @@
   width: 70%;
 }
 
+/* Mobile Nav Links */
 .mobile-nav-link {
   display: block;
   color: rgba(255, 255, 255, 0.7);
-  padding: 10px 12px;
+  padding: 12px 16px;
   border-radius: 8px;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 500;
   text-decoration: none;
   transition: background 0.2s, color 0.2s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .mobile-nav-link:hover {
@@ -141,7 +158,8 @@
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center;
+  background-position: center top;
+  /* Better for portrait photos on mobile */
   opacity: 0;
   transition: opacity 1.2s ease, transform 6s ease;
   transform: scale(1);
@@ -149,7 +167,7 @@
 
 .hero-slide.active {
   opacity: 1;
-  transform: scale(1.05);
+  transform: scale(1.04);
   z-index: 1;
 }
 
@@ -166,7 +184,7 @@
 
 .slide-dot.active {
   background: #c41a22;
-  width: 24px;
+  width: 22px;
   border-radius: 4px;
 }
 
@@ -174,13 +192,14 @@
 .porto-item {
   position: relative;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 10px;
   cursor: pointer;
+  /* Touch: always show overlay slightly on mobile */
 }
 
 .porto-img {
   width: 100%;
-  height: 200px;
+  height: 180px;
   object-fit: cover;
   object-position: center;
   display: block;
@@ -190,66 +209,72 @@
 .porto-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(196, 26, 34, 0.85), transparent);
+  background: linear-gradient(to top, rgba(196, 26, 34, 0.88), transparent 70%);
   display: flex;
   align-items: flex-end;
-  padding: 14px;
-  opacity: 0;
-  transition: opacity 0.35s ease;
+  padding: 12px;
+  /* Always slightly visible on touch screens */
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
 }
 
 .porto-overlay span {
   color: #fff;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
 }
 
-.porto-item:hover .porto-img {
-  transform: scale(1.08);
-}
+/* On pointer devices (mouse): hide until hover */
+@media (hover: hover) {
+  .porto-overlay {
+    opacity: 0;
+  }
 
-.porto-item:hover .porto-overlay {
-  opacity: 1;
+  .porto-item:hover .porto-overlay {
+    opacity: 1;
+  }
+
+  .porto-item:hover .porto-img {
+    transform: scale(1.07);
+  }
 }
 
 /* ---- SERVICE CARDS ---- */
 .service-card {
   background: #161616;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  padding: 28px 22px;
+  border-radius: 14px;
+  padding: 24px 20px;
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-  cursor: default;
 }
 
 .service-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(196, 26, 34, 0.4);
-  box-shadow: 0 16px 40px rgba(196, 26, 34, 0.1);
+  transform: translateY(-5px);
+  border-color: rgba(196, 26, 34, 0.35);
+  box-shadow: 0 12px 30px rgba(196, 26, 34, 0.1);
 }
 
 .service-icon {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   background: rgba(196, 26, 34, 0.1);
-  border-radius: 12px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .service-icon i {
   color: #c41a22;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   transition: color 0.3s;
 }
 
 .service-card:hover .service-icon {
   background: #c41a22;
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
 .service-card:hover .service-icon i {
@@ -260,37 +285,38 @@
   color: #fff;
   font-weight: 600;
   margin-bottom: 8px;
+  font-size: 0.95rem;
 }
 
 .service-card p {
   color: rgba(255, 255, 255, 0.5);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   line-height: 1.6;
+  margin: 0;
 }
 
 /* ---- CREW CARDS ---- */
 .crew-card {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
-  padding: 24px 16px;
+  border-radius: 14px;
+  padding: 20px 14px;
   text-align: center;
-  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .crew-card:hover {
-  transform: translateY(-8px);
-  background: rgba(196, 26, 34, 0.06);
-  border-color: rgba(196, 26, 34, 0.25);
+  transform: translateY(-6px);
+  border-color: rgba(196, 26, 34, 0.3);
 }
 
 .crew-photo-wrap {
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   overflow: hidden;
   border: 3px solid rgba(196, 26, 34, 0.4);
-  margin: 0 auto 12px;
+  margin: 0 auto 10px;
   transition: border-color 0.3s;
 }
 
@@ -308,14 +334,14 @@
 .crew-card h5 {
   color: #fff;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   margin-bottom: 2px;
 }
 
 .crew-card p {
   color: rgba(255, 255, 255, 0.4);
-  font-size: 0.75rem;
-  margin-bottom: 10px;
+  font-size: 0.72rem;
+  margin-bottom: 8px;
 }
 
 .crew-socials {
@@ -326,7 +352,7 @@
 
 .crew-socials a {
   color: rgba(255, 255, 255, 0.35);
-  font-size: 1rem;
+  font-size: 0.95rem;
   transition: color 0.2s;
 }
 
@@ -338,11 +364,11 @@
 .socmed-btn {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 9px 18px;
+  gap: 6px;
+  padding: 9px 16px;
   border-radius: 999px;
   color: #fff;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   text-decoration: none;
   transition: opacity 0.25s, transform 0.25s;
@@ -353,14 +379,49 @@
   transform: translateY(-2px);
 }
 
-/* ---- RESPONSIVE ---- */
-@media (max-width: 767px) {
+/* ---- RESPONSIVE BREAKPOINTS ---- */
+
+/* Small mobile (< 480px) */
+@media (max-width: 479px) {
   .porto-img {
-    height: 160px;
+    height: 150px;
   }
 
   .crew-photo-wrap {
-    width: 72px;
-    height: 72px;
+    width: 70px;
+    height: 70px;
+  }
+
+  .service-card {
+    padding: 18px 16px;
+  }
+
+  .socmed-btn {
+    padding: 8px 12px;
+    font-size: 0.78rem;
+  }
+}
+
+/* Tablet (768px) */
+@media (min-width: 768px) {
+  .porto-img {
+    height: 200px;
+  }
+
+  .crew-photo-wrap {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+  .porto-img {
+    height: 220px;
+  }
+
+  .crew-photo-wrap {
+    width: 96px;
+    height: 96px;
   }
 }
