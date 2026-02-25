@@ -53,33 +53,50 @@
     }
   </script>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts: preconnect + font-display=swap -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet">
+  <!-- Only load weights we actually use -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap&display=swap"
+    rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet">
+  </noscript>
 
-  <!-- Font Awesome & AOS -->
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Font Awesome: load async (non-render-blocking) -->
+  <link rel="preload" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" as="style"
+    onload="this.rel='stylesheet'">
+  <noscript>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  </noscript>
 
-  <!-- Custom CSS (minimal — only what Tailwind can't do) -->
+  <!-- AOS CSS: non-render-blocking -->
+  <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.rel='stylesheet'">
+  <noscript>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  </noscript>
+
+  <!-- Critical CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body class="font-poppins bg-brand-black text-white overflow-x-hidden">
 
   <!-- ===================== LOADING OVERLAY ===================== -->
-  <div id="loadingOverlay" class="loading-overlay">
+  <!-- Hidden by default via inline style; JS shows it immediately so it doesn't block LCP -->
+  <div id="loadingOverlay" class="loading-overlay" style="display:none;">
     <video class="loading-video" autoplay muted playsinline>
       <source src="Loading-Video.webm" type="video/webm">
     </video>
-    <!-- Branding over video -->
-    <div class="absolute bottom-8 left-0 right-0 flex flex-col items-center gap-2 z-10">
-      <img src="img/logowp.png" alt="RWP Logo" class="h-12 drop-shadow-lg">
+    <!-- Branding -->
+    <div class="loading-branding">
+      <img src="img/logowp.png" alt="Wijaya Production" width="96" height="38" class="h-12 drop-shadow-lg">
       <p class="text-white/60 text-sm tracking-widest uppercase">Wijaya Production</p>
     </div>
   </div>
+  <!-- Show loader immediately, before any render (inline = no render block) -->
+  <script>document.getElementById('loadingOverlay').style.display = 'flex';</script>
 
   <!-- ===================== POPUP ===================== -->
   <div id="popupContainer" class="popup-overlay hidden">
@@ -93,8 +110,9 @@
   <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4">
     <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
       <!-- Logo -->
-      <a href="#home">
-        <img src="img/logowp.png" alt="Logo RWP" class="h-10 w-auto object-contain">
+      <a href="#home" aria-label="Wijaya Production - Beranda">
+        <img src="img/logowp.png" alt="Logo Wijaya Production" width="120" height="40"
+          class="h-10 w-auto object-contain">
       </a>
 
       <!-- Desktop Nav -->
@@ -112,8 +130,9 @@
       </nav>
 
       <!-- Mobile Hamburger -->
-      <button id="menuBtn" class="lg:hidden text-white focus:outline-none">
-        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <button id="menuBtn" class="lg:hidden text-white focus:outline-none" aria-label="Buka menu navigasi"
+        aria-expanded="false">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path id="menuIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M4 6h16M4 12h16M4 18h16" />
         </svg>
@@ -621,91 +640,93 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init({ once: true, offset: 60, duration: 750 });
-    document.getElementById("tahun").textContent = new Date().getFullYear();
+  <!-- AOS: deferred (non-render-blocking) -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function () {
+      /* ---- AOS ---- */
+      if (typeof AOS !== 'undefined') AOS.init({ once: true, offset: 60, duration: 750 });
 
-    /* ---- LOADING VIDEO ---- */
-    const loader = document.getElementById("loadingOverlay");
-    const loadVid = loader.querySelector(".loading-video");
-    function hideLoader() {
-      loader.style.opacity = "0";
-      loader.style.transition = "opacity 0.6s ease";
-      setTimeout(() => loader.style.display = "none", 650);
-    }
-    const fallback = setTimeout(hideLoader, 8000);
-    if (loadVid) {
-      loadVid.addEventListener("ended", () => { clearTimeout(fallback); hideLoader(); });
-      loadVid.addEventListener("error", () => { clearTimeout(fallback); hideLoader(); });
-    } else { hideLoader(); }
+      document.getElementById("tahun").textContent = new Date().getFullYear();
 
-    /* ---- POPUP ---- */
-    const popup = document.getElementById("popupContainer");
-    const closeBtn = document.getElementById("closePopupBtn");
-    let popupShown = false;
-    function showPopup() {
-      if (popupShown) return;
-      popupShown = true;
-      popup.classList.remove("hidden");
-      popup.classList.add("flex");
-      requestAnimationFrame(() => popup.classList.add("show"));
-    }
-    window.addEventListener("scroll", () => { if (window.scrollY > 800) showPopup(); });
-    setTimeout(showPopup, 5000);
-    closeBtn.addEventListener("click", () => {
-      popup.classList.remove("show");
-      setTimeout(() => { popup.classList.add("hidden"); popup.classList.remove("flex"); }, 350);
-    });
-
-    /* ---- NAVBAR scroll effect ---- */
-    const navbar = document.getElementById("navbar");
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 60) {
-        navbar.classList.add("navbar-scrolled");
-      } else {
-        navbar.classList.remove("navbar-scrolled");
+      /* ---- LOADING VIDEO ---- */
+      const loader = document.getElementById("loadingOverlay");
+      const loadVid = loader ? loader.querySelector(".loading-video") : null;
+      function hideLoader() {
+        if (!loader) return;
+        loader.style.opacity = "0";
+        loader.style.transition = "opacity 0.6s ease";
+        setTimeout(() => loader.style.display = "none", 650);
       }
+      const fallback = setTimeout(hideLoader, 8000);
+      if (loadVid) {
+        loadVid.addEventListener("ended", () => { clearTimeout(fallback); hideLoader(); });
+        loadVid.addEventListener("error", () => { clearTimeout(fallback); hideLoader(); });
+      } else { clearTimeout(fallback); hideLoader(); }
+
+      /* ---- POPUP ---- */
+      const popup = document.getElementById("popupContainer");
+      const closeBtn = document.getElementById("closePopupBtn");
+      let popupShown = false;
+      function showPopup() {
+        if (popupShown) return;
+        popupShown = true;
+        popup.classList.remove("hidden");
+        popup.classList.add("flex");
+        requestAnimationFrame(() => popup.classList.add("show"));
+      }
+      window.addEventListener("scroll", () => { if (window.scrollY > 800) showPopup(); });
+      setTimeout(showPopup, 5000);
+      closeBtn.addEventListener("click", () => {
+        popup.classList.remove("show");
+        setTimeout(() => { popup.classList.add("hidden"); popup.classList.remove("flex"); }, 350);
+      });
+
+      /* ---- NAVBAR scroll effect ---- */
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        navbar.classList.toggle("navbar-scrolled", window.scrollY > 60);
+      });
+
+      /* ---- MOBILE MENU ---- */
+      const menuBtn = document.getElementById("menuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+      menuBtn.addEventListener("click", () => {
+        const open = mobileMenu.classList.toggle("hidden") === false;
+        mobileMenu.classList.toggle("flex", !mobileMenu.classList.contains("hidden"));
+        menuBtn.setAttribute("aria-expanded", String(!mobileMenu.classList.contains("hidden")));
+      });
+      mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+        mobileMenu.classList.remove("flex");
+        menuBtn.setAttribute("aria-expanded", "false");
+      }));
+
+      /* ---- HERO SLIDER ---- */
+      const slides = document.querySelectorAll(".hero-slide");
+      const dots = document.querySelectorAll(".slide-dot");
+      let current = 0;
+      function goTo(n) {
+        slides[current].classList.remove("active");
+        dots[current].classList.remove("active");
+        current = (n + slides.length) % slides.length;
+        slides[current].classList.add("active");
+        dots[current].classList.add("active");
+      }
+      setInterval(() => goTo(current + 1), 4500);
+      dots.forEach((d, i) => d.addEventListener("click", () => goTo(i)));
     });
 
-    /* ---- MOBILE MENU ---- */
-    const menuBtn = document.getElementById("menuBtn");
-    const mobileMenu = document.getElementById("mobileMenu");
-    menuBtn.addEventListener("click", () => {
-      mobileMenu.classList.toggle("hidden");
-      mobileMenu.classList.toggle("flex");
-    });
-    // Close mobile menu on link click
-    mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
-      mobileMenu.classList.add("hidden");
-      mobileMenu.classList.remove("flex");
-    }));
-
-    /* ---- HERO SLIDER ---- */
-    const slides = document.querySelectorAll(".hero-slide");
-    const dots = document.querySelectorAll(".slide-dot");
-    let current = 0;
-    function goTo(n) {
-      slides[current].classList.remove("active");
-      dots[current].classList.remove("active");
-      current = (n + slides.length) % slides.length;
-      slides[current].classList.add("active");
-      dots[current].classList.add("active");
-    }
-    setInterval(() => goTo(current + 1), 4500);
-    dots.forEach((d, i) => d.addEventListener("click", () => goTo(i)));
-
-    /* ---- LIGHTBOX ---- */
-    const modal = document.getElementById("imgModal");
-    const mImg = document.getElementById("modalImg");
-    const mCap = document.getElementById("modalCaption");
+    /* ---- LIGHTBOX (global functions called from HTML onclick) ---- */
     function openModal(src, cap) {
-      mImg.src = src; mCap.textContent = cap;
+      const modal = document.getElementById("imgModal");
+      document.getElementById("modalImg").src = src;
+      document.getElementById("modalCaption").textContent = cap;
       modal.classList.remove("hidden");
       modal.classList.add("flex");
     }
     function closeModal() {
+      const modal = document.getElementById("imgModal");
       modal.classList.add("hidden");
       modal.classList.remove("flex");
     }
