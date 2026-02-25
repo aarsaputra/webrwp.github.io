@@ -1,809 +1,714 @@
 <!doctype html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 
 <head>
-  <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- SEO & Verification -->
   <meta name="google-site-verification" content="rNKPfU7291MrC27CPcqX98RVFZTWxUy5zFniLxVydoI" />
   <meta name="google-site-verification" content="xGq6qtwqBFBNZWneTyzQPAYPY1Ltw0Y5uQDA5hYF5Ao" />
   <meta name="keywords"
-    content="studio foto, studio foto terdekat, fotografer, studio video terdekat, videografi, pernikahan, prewedding,foto keluarga,foto bayi,foto produk,studio foto mataram, foto studio terdekat, jasa foto bayi baru lahir terdekat, studio foto di mataram, studio foto terdekat, movie studio, video wedding, dokumentasi pernikahan iklan, Lombok, Mataram, Live event, live streaming, Ranu Wijaya Production, Wijaya Production">
+    content="studio foto, studio foto terdekat, fotografer, studio video terdekat, videografi, pernikahan, prewedding, Lombok, Mataram, Live event, live streaming, Ranu Wijaya Production, Wijaya Production">
   <meta name="author" content="Aar Saputra">
   <meta name="robots" content="index, follow">
-  <meta name="googlebot" content="index, follow">
-
-  <!-- OpenGraph Meta Tags -->
   <meta property="og:title" content="Studio Foto & Video Profesional | Wijaya Production">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ranuwijaya.github.io/">
   <meta property="og:image" content="https://ranuwijaya.github.io/img/logo1.webp">
   <meta property="og:description"
-    content="Wijaya Production adalah studio foto dan video profesional di Lombok yang menyediakan berbagai macam jasa fotografi dan videografi mulai dari pernikahan, prewedding, hingga iklan.">
+    content="Wijaya Production — studio foto dan video profesional di Lombok. Wedding, prewedding, live streaming, company profile, dan lebih banyak lagi.">
+  <title>Wijaya Production | Studio Foto & Video Profesional Lombok</title>
 
-  <!-- Google Fonts: Poppins -->
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#c41a22',
+              dark: '#8b1218',
+              light: '#e63946',
+              black: '#0d0d0d',
+              dark2: '#161616',
+              dark3: '#1e1e1e',
+              gray: '#2a2a2a',
+            }
+          },
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif'],
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.8s ease forwards',
+            'fade-in': 'fadeIn 0.6s ease forwards',
+            'scale-in': 'scaleIn 0.5s ease forwards',
+          },
+          keyframes: {
+            fadeInUp: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+            fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+            scaleIn: { '0%': { opacity: '0', transform: 'scale(0.9)' }, '100%': { opacity: '1', transform: 'scale(1)' } },
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
-  <!-- Bootstrap & External CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <!-- Font Awesome & AOS -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-  <!-- Custom CSS -->
+  <!-- Custom CSS (minimal — only what Tailwind can't do) -->
   <link rel="stylesheet" href="css/style.css">
-  <title>Wijaya Production | Jasa Foto & Video Professional Lombok</title>
 </head>
 
-<body>
-  <!-- Loading Overlay -->
-  <div class="loading-overlay" id="loadingOverlay">
-    <video class="loading-video" autoplay muted loop playsinline>
+<body class="font-poppins bg-brand-black text-white overflow-x-hidden">
+
+  <!-- ===================== LOADING OVERLAY ===================== -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <video class="loading-video" autoplay muted playsinline>
       <source src="Loading-Video.webm" type="video/webm">
     </video>
-  </div>
-
-  <!-- Popup Brosur (Hidden by default, triggered by scroll/delay) -->
-  <div class="popup-container" id="popupContainer">
-    <div class="popup-content">
-      <span class="close-button" id="closePopupBtn">&times;</span>
-      <img class="img-pop" src="img/brosur.webp" alt="Promo Wijaya Production">
+    <!-- Branding over video -->
+    <div class="absolute bottom-8 left-0 right-0 flex flex-col items-center gap-2 z-10">
+      <img src="img/logowp.png" alt="RWP Logo" class="h-12 drop-shadow-lg">
+      <p class="text-white/60 text-sm tracking-widest uppercase">Wijaya Production</p>
     </div>
   </div>
 
-  <!-- Header / Navbar -->
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-dark premium-nav fixed-top shadow-sm">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <img src="img/logowp.png" alt="Logo RWP" class="logo-nav">
+  <!-- ===================== POPUP ===================== -->
+  <div id="popupContainer" class="popup-overlay hidden">
+    <div class="popup-box">
+      <button id="closePopupBtn" class="popup-close">&times;</button>
+      <img src="img/brosur.webp" alt="Promo Wijaya Production" class="block w-full h-auto rounded-xl">
+    </div>
+  </div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4">
+    <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#home">
+        <img src="img/logowp.png" alt="Logo RWP" class="h-10 w-auto object-contain">
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center gap-1">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#portofolio" class="nav-link">Portofolio</a>
+        <a href="#service" class="nav-link">Service</a>
+        <a href="#crew" class="nav-link">Crew</a>
+        <a href="#kontak" class="nav-link">Kontak</a>
+        <a href="https://wa.me/6287765486499" target="_blank"
+          class="ml-4 px-5 py-2 bg-brand-red text-white rounded-full text-sm font-semibold hover:bg-brand-light transition-all duration-300 shadow-lg shadow-red-900/30">
+          Book Now
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto fw-medium">
-            <li class="nav-item"><a class="nav-link text-white" href="#home">Home</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#about">About Us</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#portofolio">Portofolio</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#service">Service</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#crew">Crew</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#kontak">Kontak</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+      </nav>
+
+      <!-- Mobile Hamburger -->
+      <button id="menuBtn" class="lg:hidden text-white focus:outline-none">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="menuIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="lg:hidden hidden flex-col gap-1 px-4 pb-4 mt-2 bg-brand-dark2/95 backdrop-blur-md">
+      <a href="#home" class="mobile-nav-link">Home</a>
+      <a href="#about" class="mobile-nav-link">About</a>
+      <a href="#portofolio" class="mobile-nav-link">Portofolio</a>
+      <a href="#service" class="mobile-nav-link">Service</a>
+      <a href="#crew" class="mobile-nav-link">Crew</a>
+      <a href="#kontak" class="mobile-nav-link">Kontak</a>
+      <a href="https://wa.me/6287765486499" target="_blank"
+        class="mt-2 text-center px-5 py-2 bg-brand-red text-white rounded-full text-sm font-semibold">Book Now</a>
+    </div>
   </header>
 
-  <main>
-    <!-- Hero Slider -->
-    <section id="home" class="hero-section">
-      <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true"
-            aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-          <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-        </div>
-        <div class="carousel-inner h-100">
-          <div class="carousel-item active h-100">
-            <img src="img/khataman.webp" class="d-block w-100 h-100 object-fit-cover" alt="Foto Khataman">
-            <div class="carousel-caption d-none d-md-block glass-caption p-4 rounded-3">
-              <h2 class="fw-bold fs-1">Abadikan Momen Berharga</h2>
-              <p class="fs-5">Dengan sentuhan profesional dan kualitas terbaik</p>
-            </div>
-          </div>
-          <div class="carousel-item h-100">
-            <img src="img/wedding.webp" loading="lazy" class="d-block w-100 h-100 object-fit-cover" alt="Foto Wedding">
-            <div class="carousel-caption d-none d-md-block glass-caption p-4 rounded-3">
-              <h2 class="fw-bold fs-1">Dokumentasi Pernikahan</h2>
-              <p class="fs-5">Setiap detik yang penuh makna tak akan terlewatkan</p>
-            </div>
-          </div>
-          <div class="carousel-item h-100">
-            <img src="img/bmeet.webp" loading="lazy" class="d-block w-100 h-100 object-fit-cover" alt="Foto Meeting">
-            <div class="carousel-caption d-none d-md-block glass-caption p-4 rounded-3">
-              <h2 class="fw-bold fs-1">Live Event & Streaming</h2>
-              <p class="fs-5">Membawa acaramu langsung ke audiens global</p>
-            </div>
-          </div>
-          <div class="carousel-item h-100">
-            <img src="img/wisuda.webp" loading="lazy" class="d-block w-100 h-100 object-fit-cover" alt="Foto Wisuda">
-            <div class="carousel-caption d-none d-md-block glass-caption p-4 rounded-3">
-              <h2 class="fw-bold fs-1">Rayakan Kelulusan</h2>
-              <p class="fs-5">Simpan kebanggaanmu dalam potret menawan</p>
-            </div>
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-    </section>
+  <!-- ===================== HERO ===================== -->
+  <section id="home" class="relative h-screen min-h-[600px] overflow-hidden">
+    <!-- Slides -->
+    <div id="heroSlides" class="absolute inset-0">
+      <div class="hero-slide active" style="background-image:url('img/khataman.webp')"></div>
+      <div class="hero-slide" style="background-image:url('img/wedding.webp')"></div>
+      <div class="hero-slide" style="background-image:url('img/bmeet.webp')"></div>
+      <div class="hero-slide" style="background-image:url('img/wisuda.webp')"></div>
+    </div>
 
-    <!-- Welcome Logo Section -->
-    <section class="welcome-section text-center position-relative">
-      <div class="container py-5">
-        <img src="img/logowp.png" loading="lazy" class="welcome-logo mb-4" alt="Logo RWP" data-aos="zoom-in-up">
-        <h3 class="fw-semibold text-white">Wijaya Production</h3>
-        <p class="text-white-50">Capture Your Best Moments With Us</p>
-      </div>
-      <svg class="welcome-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path fill="#f8f9fa" fill-opacity="1"
-          d="M0,288L30,261.3C60,235,120,181,180,181.3C240,181,300,235,360,256C420,277,480,267,540,250.7C600,235,660,213,720,202.7C780,192,840,192,900,213.3C960,235,1020,277,1080,272C1140,267,1200,213,1260,202.7C1320,192,1380,224,1410,240L1440,256L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z">
-        </path>
-      </svg>
-    </section>
+    <!-- Dark gradient overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-brand-black z-10"></div>
+    <!-- Red accent line at bottom -->
+    <div
+      class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-red via-brand-light to-brand-dark z-20">
+    </div>
 
-    <!-- About Us Section -->
-    <section id="about" class="py-5 bg-light">
-      <div class="container">
-        <div class="row g-5 align-items-center mb-5" data-aos="fade-up">
-          <div class="col-lg-6">
-            <h2 class="fw-bold section-title mb-4">About Us</h2>
-            <p class="text-muted fs-5 lh-lg">
-              Berawal pada tahun 1992 dari sebuah ketertarikan melihat seorang fotografer beraksi, rasa penasaran itu
-              tumbuh menjadi hobi. Berbekal sebuah kamera di rumah, saya terus berlatih dan mendalami dunia fotografi.
-            </p>
-            <p class="text-muted fs-5 lh-lg">
-              Kini, bersama empat rekan yang penuh semangat, lahirlah <strong>Ranu Wijaya Production</strong>. Tidak
-              hanya mahir dalam fotografi, kami berkembang menyediakan layanan Wedding Organizer (WO) dan dokumentasi
-              video multi-cam (HD) untuk menyukseskan acara Anda.
-            </p>
-          </div>
-          <div class="col-lg-6 text-center">
-            <img src="img/khataman.webp" loading="lazy" class="about-img rounded-4 shadow-lg" alt="Tim RWP">
-          </div>
-        </div>
-
-        <div class="row g-4 mt-4 text-center justify-content-center" data-aos="fade-up" data-aos-delay="200">
-          <div class="col-md-5">
-            <div class="p-4 bg-white rounded-4 shadow-sm h-100 hover-lift">
-              <i class="fa fa-eye fs-1 text-danger mb-3"></i>
-              <h3 class="fw-bold mb-3">Visi</h3>
-              <p class="text-muted mb-0">
-                Menjadi studio foto & video terdepan dan terpercaya dengan menghadirkan layanan dokumentasi berkualitas
-                tinggi yang melampaui ekspektasi pelanggan, selalu diiringi dengan profesionalisme dan keramahan.
-              </p>
-            </div>
-          </div>
-          <div class="col-md-5">
-            <div class="p-4 bg-white rounded-4 shadow-sm h-100 hover-lift">
-              <i class="fa fa-bullseye fs-1 text-danger mb-3"></i>
-              <h3 class="fw-bold mb-3">Misi</h3>
-              <p class="text-muted mb-0">
-                Memberikan hasil dokumentasi visual berkelas dengan teknologi mutakhir. Merangkul pelanggan sebagai
-                mitra dengan solusi adaptif dan kreatif, serta terus mengasah keahlian tim agar selalu relevan dengan
-                tren industri.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Portofolio - Foto -->
-    <section id="portofolio" class="py-5">
-      <div class="container">
-        <div class="text-center mb-5" data-aos="fade-up">
-          <h2 class="fw-bold section-title">Portofolio</h2>
-          <p class="text-muted">Kumpulan karya menakjubkan yang telah kami abadikan</p>
-        </div>
-
-        <h3 class="fw-semibold mb-4 ps-2 border-start border-4 border-danger" data-aos="fade-right">Fotografi</h3>
-
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 mb-5">
-          <!-- Item 1 -->
-          <div class="col" data-aos="zoom-in" data-aos-delay="100">
-            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden porto-card">
-              <img src="img/wisuda2.webp" loading="lazy" class="card-img-top porto-img" alt="Foto Wisuda"
-                data-bs-toggle="modal" data-bs-target="#imgModal1">
-              <div class="card-body text-center bg-white p-3">
-                <h5 class="card-title fw-semibold mb-0">Wisuda</h5>
-              </div>
-            </div>
-          </div>
-          <!-- Item 2 -->
-          <div class="col" data-aos="zoom-in" data-aos-delay="200">
-            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden porto-card">
-              <img src="img/meet.webp" loading="lazy" class="card-img-top porto-img" alt="Meeting"
-                data-bs-toggle="modal" data-bs-target="#imgModal2">
-              <div class="card-body text-center bg-white p-3">
-                <h5 class="card-title fw-semibold mb-0">Corporate Meeting</h5>
-              </div>
-            </div>
-          </div>
-          <!-- Item 3 -->
-          <div class="col" data-aos="zoom-in" data-aos-delay="300">
-            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden porto-card">
-              <img src="img/wedding1.webp" loading="lazy" class="card-img-top porto-img" alt="Wedding"
-                data-bs-toggle="modal" data-bs-target="#imgModal3">
-              <div class="card-body text-center bg-white p-3">
-                <h5 class="card-title fw-semibold mb-0">Wedding</h5>
-              </div>
-            </div>
-          </div>
-          <!-- Item 4 -->
-          <div class="col" data-aos="zoom-in" data-aos-delay="400">
-            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden porto-card">
-              <img src="img/prewedding.webp" loading="lazy" class="card-img-top porto-img" alt="Prewedding"
-                data-bs-toggle="modal" data-bs-target="#imgModal4">
-              <div class="card-body text-center bg-white p-3">
-                <h5 class="card-title fw-semibold mb-0">Pre-Wedding</h5>
-              </div>
-            </div>
-          </div>
-          <!-- Item 5 -->
-          <div class="col" data-aos="zoom-in" data-aos-delay="500">
-            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden porto-card">
-              <img src="img/outbond.webp" loading="lazy" class="card-img-top porto-img" alt="Outbond"
-                data-bs-toggle="modal" data-bs-target="#imgModal5">
-              <div class="card-body text-center bg-white p-3">
-                <h5 class="card-title fw-semibold mb-0">Outbond / Tour</h5>
-              </div>
-            </div>
-          </div>
-          <!-- Item 6 -->
-          <div class="col" data-aos="zoom-in" data-aos-delay="600">
-            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden porto-card">
-              <img src="img/7437ART.webp" loading="lazy" class="card-img-top porto-img" alt="Khataman"
-                data-bs-toggle="modal" data-bs-target="#imgModal6">
-              <div class="card-body text-center bg-white p-3">
-                <h5 class="card-title fw-semibold mb-0">Khataman Al-Qur'an</h5>
-              </div>
-            </div>
-          </div>
-          <!-- Item 7 -->
-          <div class="col" data-aos="zoom-in" data-aos-delay="700">
-            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden porto-card">
-              <img src="img/2614.webp" loading="lazy" class="card-img-top porto-img" alt="Family Gathering"
-                data-bs-toggle="modal" data-bs-target="#imgModal7">
-              <div class="card-body text-center bg-white p-3">
-                <h5 class="card-title fw-semibold mb-0">Family Gathering</h5>
-              </div>
-            </div>
-          </div>
-          <!-- Item 8 -->
-          <div class="col" data-aos="zoom-in" data-aos-delay="800">
-            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden porto-card">
-              <img src="img/khataman2.webp" loading="lazy" class="card-img-top porto-img" alt="Event Lain"
-                data-bs-toggle="modal" data-bs-target="#imgModal8">
-              <div class="card-body text-center bg-white p-3">
-                <h5 class="card-title fw-semibold mb-0">Khataman / Pengajian</h5>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Modals for Images -->
-        <!-- Template JS akan mengisi source src sesuai id -->
-        <div class="modal fade" id="imgModal1" tabindex="-1" aria-hidden="true">
-          <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content bg-transparent border-0"><button type="button"
-                class="btn-close btn-close-white position-absolute top-0 end-0 m-4" data-bs-dismiss="modal"
-                style="z-index: 1055;"></button><img src="img/wisuda2.webp" class="img-fluid rounded mx-auto"
-                alt="Wisuda"></div>
-          </div>
-        </div>
-        <div class="modal fade" id="imgModal2" tabindex="-1" aria-hidden="true">
-          <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content bg-transparent border-0"><button type="button"
-                class="btn-close btn-close-white position-absolute top-0 end-0 m-4" data-bs-dismiss="modal"
-                style="z-index: 1055;"></button><img src="img/meet.webp" class="img-fluid rounded mx-auto"
-                alt="Meeting"></div>
-          </div>
-        </div>
-        <div class="modal fade" id="imgModal3" tabindex="-1" aria-hidden="true">
-          <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content bg-transparent border-0"><button type="button"
-                class="btn-close btn-close-white position-absolute top-0 end-0 m-4" data-bs-dismiss="modal"
-                style="z-index: 1055;"></button><img src="img/wedding1.webp" class="img-fluid rounded mx-auto"
-                alt="Wedding"></div>
-          </div>
-        </div>
-        <div class="modal fade" id="imgModal4" tabindex="-1" aria-hidden="true">
-          <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content bg-transparent border-0"><button type="button"
-                class="btn-close btn-close-white position-absolute top-0 end-0 m-4" data-bs-dismiss="modal"
-                style="z-index: 1055;"></button><img src="img/prewedding.webp" class="img-fluid rounded mx-auto"
-                alt="Prewedding"></div>
-          </div>
-        </div>
-        <div class="modal fade" id="imgModal5" tabindex="-1" aria-hidden="true">
-          <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content bg-transparent border-0"><button type="button"
-                class="btn-close btn-close-white position-absolute top-0 end-0 m-4" data-bs-dismiss="modal"
-                style="z-index: 1055;"></button><img src="img/outbond.webp" class="img-fluid rounded mx-auto"
-                alt="Outbond"></div>
-          </div>
-        </div>
-        <div class="modal fade" id="imgModal6" tabindex="-1" aria-hidden="true">
-          <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content bg-transparent border-0"><button type="button"
-                class="btn-close btn-close-white position-absolute top-0 end-0 m-4" data-bs-dismiss="modal"
-                style="z-index: 1055;"></button><img src="img/7437ART.webp" class="img-fluid rounded mx-auto"
-                alt="Khataman"></div>
-          </div>
-        </div>
-        <div class="modal fade" id="imgModal7" tabindex="-1" aria-hidden="true">
-          <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content bg-transparent border-0"><button type="button"
-                class="btn-close btn-close-white position-absolute top-0 end-0 m-4" data-bs-dismiss="modal"
-                style="z-index: 1055;"></button><img src="img/2614.webp" class="img-fluid rounded mx-auto" alt="Family">
-            </div>
-          </div>
-        </div>
-        <div class="modal fade" id="imgModal8" tabindex="-1" aria-hidden="true">
-          <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content bg-transparent border-0"><button type="button"
-                class="btn-close btn-close-white position-absolute top-0 end-0 m-4" data-bs-dismiss="modal"
-                style="z-index: 1055;"></button><img src="img/khataman2.webp" class="img-fluid rounded mx-auto"
-                alt="Khataman2"></div>
-          </div>
-        </div>
-
-        <!-- Portofolio - Video -->
-        <h3 class="fw-semibold mb-4 ps-2 border-start border-4 border-danger pt-5" data-aos="fade-right">Videografi</h3>
-        <div class="row row-cols-1 row-cols-lg-2 g-4">
-
-          <div class="col" data-aos="fade-up" data-aos-delay="100">
-            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
-              <div class="ratio ratio-16x9">
-                <!-- Lazy load youtube iframe facade pattern can be improved by adding a thumbnail first, but we use lazy loading -->
-                <iframe src="https://www.youtube.com/embed/kDfCZzdHZd8" title="YouTube video player" frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen loading="lazy"></iframe>
-              </div>
-              <div class="card-body bg-white p-4">
-                <h5 class="fw-bold">Khataman Al-Qur'an</h5>
-                <p class="text-muted mb-0">Cuplikan live streaming dan dokumentasi acara majelis secara profesional.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col" data-aos="fade-up" data-aos-delay="200">
-            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
-              <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/dupzhwOfMyE" title="YouTube video player" frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen loading="lazy"></iframe>
-              </div>
-              <div class="card-body bg-white p-4">
-                <h5 class="fw-bold">Liputan Pengajian</h5>
-                <p class="text-muted mb-0">Visualisasi yang jernih dan audio berkualitas untuk mendukung dakwah.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col" data-aos="fade-up" data-aos-delay="300">
-            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
-              <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/sOvwzEyh5Is" title="YouTube video player" frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen loading="lazy"></iframe>
-              </div>
-              <div class="card-body bg-white p-4">
-                <h5 class="fw-bold">Iklan Produk Lokal</h5>
-                <p class="text-muted mb-0">Video komersial untuk meningkatkan nilai jual brand dan produk lokal Anda.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col" data-aos="fade-up" data-aos-delay="400">
-            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
-              <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/lKx9yyQ9P50" title="YouTube video player" frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen loading="lazy"></iframe>
-              </div>
-              <div class="card-body bg-white p-4">
-                <h5 class="fw-bold">Musik Tradisional Sasak</h5>
-                <p class="text-muted mb-0">Eksplorasi budaya dan pelestarian seni lokal melalui produksi video kreatif.
-                </p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="service" class="py-5 bg-light">
-      <div class="container">
-        <div class="text-center mb-5" data-aos="fade-up">
-          <h2 class="fw-bold section-title">Layanan Kami</h2>
-          <p class="text-muted">Solusi lengkap kebutuhan dokumentasi dan multimedia Anda</p>
-        </div>
-
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 mt-3">
-          <!-- Service Card 1 -->
-          <div class="col" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-card rounded-4 bg-white shadow-sm p-4 h-100 position-relative text-center">
-              <div
-                class="service-icon mx-auto mb-3 bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center"
-                style="width:70px;height:70px;">
-                <i class="fa fa-heart fs-2"></i>
-              </div>
-              <h5 class="fw-bold text-dark">Wedding</h5>
-              <p class="text-muted small mb-0">Dokumentasikan pernikahan sakral Anda menjadi kenangan abadi secara
-                sinematik.</p>
-            </div>
-          </div>
-          <!-- Service Card 2 -->
-          <div class="col" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-card rounded-4 bg-white shadow-sm p-4 h-100 position-relative text-center">
-              <div
-                class="service-icon mx-auto mb-3 bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center"
-                style="width:70px;height:70px;">
-                <i class="fa fa-video-camera fs-2"></i>
-              </div>
-              <h5 class="fw-bold text-dark">Live Streaming</h5>
-              <p class="text-muted small mb-0">Broadcasting event dengan multi-camera setup ke YouTube, Zoom, atau
-                platform lainnya.</p>
-            </div>
-          </div>
-          <!-- Service Card 3 -->
-          <div class="col" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-card rounded-4 bg-white shadow-sm p-4 h-100 position-relative text-center">
-              <div
-                class="service-icon mx-auto mb-3 bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center"
-                style="width:70px;height:70px;">
-                <i class="fa fa-plane fs-2"></i>
-              </div>
-              <h5 class="fw-bold text-dark">Tour & Outbound</h5>
-              <p class="text-muted small mb-0">Aktivitas liburan dan gathering perusahaan terekam apik dan siap
-                dibagikan.</p>
-            </div>
-          </div>
-          <!-- Service Card 4 -->
-          <div class="col" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-card rounded-4 bg-white shadow-sm p-4 h-100 position-relative text-center">
-              <div
-                class="service-icon mx-auto mb-3 bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center"
-                style="width:70px;height:70px;">
-                <i class="fa fa-building fs-2"></i>
-              </div>
-              <h5 class="fw-bold text-dark">Company Profile</h5>
-              <p class="text-muted small mb-0">Tingkatkan kredibilitas bisnis lewat video company profile yang elegan
-                dan informatif.</p>
-            </div>
-          </div>
-          <!-- Service Card 5 -->
-          <div class="col" data-aos="fade-up" data-aos-delay="500">
-            <div class="service-card rounded-4 bg-white shadow-sm p-4 h-100 position-relative text-center">
-              <div
-                class="service-icon mx-auto mb-3 bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center"
-                style="width:70px;height:70px;">
-                <i class="fa fa-book fs-2"></i>
-              </div>
-              <h5 class="fw-bold text-dark">Acara Keagamaan</h5>
-              <p class="text-muted small mb-0">Dokumentasi khataman, pengajian, hajatan yang penuh khidmat dengan hasil
-                foto & video jernih.</p>
-            </div>
-          </div>
-          <!-- Service Card 6 -->
-          <div class="col" data-aos="fade-up" data-aos-delay="600">
-            <div class="service-card rounded-4 bg-white shadow-sm p-4 h-100 position-relative text-center">
-              <div
-                class="service-icon mx-auto mb-3 bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center"
-                style="width:70px;height:70px;">
-                <i class="fa fa-users fs-2"></i>
-              </div>
-              <h5 class="fw-bold text-dark">Family Gathering</h5>
-              <p class="text-muted small mb-0">Keseruan keluarga terbingkai manis tanpa satupun yang terlewatkan.</p>
-            </div>
-          </div>
-          <!-- Service Card 7 -->
-          <div class="col" data-aos="fade-up" data-aos-delay="700">
-            <div class="service-card rounded-4 bg-white shadow-sm p-4 h-100 position-relative text-center">
-              <div
-                class="service-icon mx-auto mb-3 bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center"
-                style="width:70px;height:70px;">
-                <i class="fa fa-handshake-o fs-2"></i>
-              </div>
-              <h5 class="fw-bold text-dark">Meeting & Seminar</h5>
-              <p class="text-muted small mb-0">Rekam momen penting diskusi untuk arsip, publikasi resmi atau online
-                course.</p>
-            </div>
-          </div>
-          <!-- Service Card 8 -->
-          <div class="col" data-aos="fade-up" data-aos-delay="800">
-            <div class="service-card rounded-4 bg-white shadow-sm p-4 h-100 position-relative text-center">
-              <div
-                class="service-icon mx-auto mb-3 bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center"
-                style="width:70px;height:70px;">
-                <i class="fa fa-laptop fs-2"></i>
-              </div>
-              <h5 class="fw-bold text-dark">IT Services</h5>
-              <p class="text-muted small mb-0">Servis perangkat lunak, install ulang PC, instalasi aplikasi kreatif,
-                hingga troubleshooting.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Crew Section -->
-    <section id="crew" class="py-5 bg-danger text-white position-relative overflow-hidden">
-      <!-- Decorative background SVGs or patterns can go here -->
-      <div class="container position-relative z-1">
-        <div class="text-center mb-5" data-aos="fade-up">
-          <h2 class="fw-bold section-title text-white">Tim Kami</h2>
-          <p class="text-white-50">Para profesional kreatif yang berada di balik layar</p>
-        </div>
-
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 justify-content-center g-4 mt-3">
-          <!-- Crew 1 -->
-          <div class="col" data-aos="fade-up" data-aos-delay="100">
-            <div class="crew-card text-center">
-              <div class="crew-img-wrap mb-3 mx-auto">
-                <img src="img/ranu.webp" loading="lazy"
-                  class="crew-img rounded-circle object-fit-cover shadow border border-3 border-white"
-                  alt="Ranu Wijaya">
-              </div>
-              <h5 class="fw-bold mb-1">Ranu Wijaya</h5>
-              <p class="small text-white-50 mb-2">Owner & Director</p>
-              <div class="crew-socials">
-                <a href="https://www.facebook.com/ranu.wijaya.7374" target="_blank"
-                  class="text-white mx-1 hover-scale"><i class="fa fa-facebook-square fs-5"></i></a>
-                <a href="#" class="text-white mx-1 hover-scale"><i class="fa fa-instagram fs-5"></i></a>
-              </div>
-            </div>
-          </div>
-          <!-- Crew 2 -->
-          <div class="col" data-aos="fade-up" data-aos-delay="200">
-            <div class="crew-card text-center">
-              <div class="crew-img-wrap mb-3 mx-auto">
-                <img src="img/2.webp" loading="lazy"
-                  class="crew-img rounded-circle object-fit-cover shadow border border-3 border-white" alt="Aar">
-              </div>
-              <h5 class="fw-bold mb-1">Aar Saputra</h5>
-              <p class="small text-white-50 mb-2">vMix Operator & Dev</p>
-              <div class="crew-socials">
-                <a href="https://www.facebook.com/aar.saputra.3154" target="_blank"
-                  class="text-white mx-1 hover-scale"><i class="fa fa-facebook-square fs-5"></i></a>
-                <a href="#" class="text-white mx-1 hover-scale"><i class="fa fa-linkedin-square fs-5"></i></a>
-              </div>
-            </div>
-          </div>
-          <!-- Crew 3 -->
-          <div class="col" data-aos="fade-up" data-aos-delay="300">
-            <div class="crew-card text-center">
-              <div class="crew-img-wrap mb-3 mx-auto">
-                <img src="img/3.webp" loading="lazy"
-                  class="crew-img rounded-circle object-fit-cover shadow border border-3 border-white" alt="Ridho">
-              </div>
-              <h5 class="fw-bold mb-1">Ridho Aditia</h5>
-              <p class="small text-white-50 mb-2">Head Photographer</p>
-              <div class="crew-socials">
-                <a href="#" class="text-white mx-1 hover-scale"><i class="fa fa-instagram fs-5"></i></a>
-              </div>
-            </div>
-          </div>
-          <!-- Crew 4 -->
-          <div class="col" data-aos="fade-up" data-aos-delay="400">
-            <div class="crew-card text-center">
-              <div class="crew-img-wrap mb-3 mx-auto">
-                <img src="img/pito.webp" loading="lazy"
-                  class="crew-img rounded-circle object-fit-cover shadow border border-3 border-white" alt="Alfito">
-              </div>
-              <h5 class="fw-bold mb-1">Alfito Deanova</h5>
-              <p class="small text-white-50 mb-2">Cameraman</p>
-              <div class="crew-socials">
-                <a href="#" class="text-white mx-1 hover-scale"><i class="fa fa-instagram fs-5"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Crew 5 -->
-          <div class="col" data-aos="fade-up" data-aos-delay="500">
-            <div class="crew-card text-center">
-              <div class="crew-img-wrap mb-3 mx-auto">
-                <img src="img/deval.webp" loading="lazy"
-                  class="crew-img rounded-circle object-fit-cover shadow border border-3 border-white" alt="Devaldi">
-              </div>
-              <h5 class="fw-bold mb-1">Devaldi Gensua</h5>
-              <p class="small text-white-50 mb-2">Cameraman</p>
-              <div class="crew-socials">
-                <a href="https://www.facebook.com/devaldigensua.gentsua" target="_blank"
-                  class="text-white mx-1 hover-scale"><i class="fa fa-facebook-square fs-5"></i></a>
-              </div>
-            </div>
-          </div>
-          <!-- Crew 6 -->
-          <div class="col" data-aos="fade-up" data-aos-delay="600">
-            <div class="crew-card text-center">
-              <div class="crew-img-wrap mb-3 mx-auto">
-                <img src="img/yayan.webp" loading="lazy"
-                  class="crew-img rounded-circle object-fit-cover shadow border border-3 border-white"
-                  alt="Moh Septian">
-              </div>
-              <h5 class="fw-bold mb-1">Moh. Septian Gifari</h5>
-              <p class="small text-white-50 mb-2">Editor & Cameraman</p>
-              <div class="crew-socials">
-                <a href="#" class="text-white mx-1 hover-scale"><i class="fa fa-instagram fs-5"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact & Map Section -->
-    <section id="kontak" class="py-5">
-      <div class="container">
-        <div class="row align-items-center g-5">
-          <div class="col-lg-5" data-aos="fade-right">
-            <h2 class="fw-bold section-title mb-4">Let's Connect</h2>
-            <p class="text-muted mb-4">Konsultasikan konsep acara Anda kepada kami. Kami siap mewujudkan visual impian
-              Anda.</p>
-
-            <div class="d-flex align-items-center mb-4 p-3 bg-light rounded-4">
-              <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center me-3"
-                style="width: 50px; height: 50px;">
-                <i class="fa fa-map-marker fs-4"></i>
-              </div>
-              <div>
-                <h6 class="fw-bold mb-1">Workshop</h6>
-                <p class="small text-muted mb-0">Gg. Jeruk 1 Jl. Gotong Royong No. 13<br>Pejeruk, Ampenan, Mataram 83125
-                </p>
-              </div>
-            </div>
-
-            <div class="d-flex align-items-center mb-4 p-3 bg-light rounded-4">
-              <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center me-3"
-                style="width: 50px; height: 50px;">
-                <i class="fa fa-phone fs-4"></i>
-              </div>
-              <div>
-                <h6 class="fw-bold mb-1">WhatsApp / Call</h6>
-                <p class="small text-muted mb-0"><a href="https://wa.me/6287765486499"
-                    class="text-decoration-none text-muted fw-semibold">0877-6548-6499</a></p>
-              </div>
-            </div>
-
-            <div class="mt-4 pt-3 border-top">
-              <h6 class="fw-bold mb-3">Sosial Media</h6>
-              <div class="d-flex flex-wrap gap-2">
-                <a href="https://wa.me/+6287765486499" target="_blank" class="btn text-white rounded-pill px-4"
-                  style="background:#25D366;"><i class="fa fa-whatsapp me-2"></i>WhatsApp</a>
-                <a href="https://www.instagram.com/wijaya_production77/" target="_blank"
-                  class="btn text-white rounded-pill px-4" style="background:#E1306C;"><i
-                    class="fa fa-instagram me-2"></i>Instagram</a>
-                <a href="https://www.youtube.com/@wIijayaproduction00" target="_blank"
-                  class="btn text-white rounded-pill px-4" style="background:#FF0000;"><i
-                    class="fa fa-youtube-play me-2"></i>YouTube</a>
-                <a href="https://www.facebook.com/ranuwijaya2719/" target="_blank"
-                  class="btn text-white rounded-pill px-4" style="background:#1877F2;"><i
-                    class="fa fa-facebook me-2"></i>Facebook</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-7" data-aos="fade-left">
-            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
-              <iframe class="w-100" style="height: 450px;"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.2498026353237!2d116.08315707430309!3d-8.571962686967382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dcdc0619e291705%3A0x85d987445593ed43!2sRanu%20Wijaya%20Production!5e0!3m2!1sid!2sid!4v1683602748198!5m2!1sid!2sid"
-                frameborder="0" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-dark text-white text-center py-4">
-    <div class="container">
-      <img src="img/logowp.png" alt="RWP Logo" class="footer-logo mb-3">
-      <p class="small text-white-50 mb-0">
-        &copy; <span id="tahun">2024</span> Wijaya Production. All Rights Reserved.
+    <!-- Hero Content -->
+    <div class="relative z-20 h-full flex flex-col items-center justify-center text-center px-4">
+      <p class="text-brand-red text-xs font-semibold tracking-[0.3em] uppercase mb-4 animate-fade-in"
+        style="animation-delay:0.2s;opacity:0">
+        ✦ Ranu Wijaya Production — Lombok
       </p>
-      <p class="small text-white-50 mt-1">
-        Developed with <i class="fa fa-heart text-danger"></i> by <a
-          href="https://www.facebook.com/profile.php?id=61553240002855&mibextid=ZbWKwL" target="_blank"
-          class="text-white fw-bold text-decoration-none hover-danger">Aar Saputra</a>
+      <h1 id="heroTitle"
+        class="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6 animate-fade-in-up"
+        style="animation-delay:0.4s;opacity:0">
+        Abadikan<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-brand-light">Momen
+          Berharga</span>
+      </h1>
+      <p class="text-white/70 text-base md:text-lg max-w-xl mb-10 animate-fade-in-up"
+        style="animation-delay:0.6s;opacity:0">
+        Studio foto & video profesional di Lombok — Wedding, Live Streaming, Prewedding, dan lebih banyak lagi.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center animate-fade-in-up" style="animation-delay:0.8s;opacity:0">
+        <a href="#portofolio"
+          class="px-8 py-3 bg-brand-red hover:bg-brand-light text-white font-semibold rounded-full transition-all duration-300 shadow-lg shadow-red-900/40">
+          Lihat Portofolio
+        </a>
+        <a href="https://wa.me/6287765486499" target="_blank"
+          class="px-8 py-3 border border-white/30 hover:border-brand-red text-white hover:text-brand-red font-semibold rounded-full transition-all duration-300 backdrop-blur-sm">
+          Hubungi Kami
+        </a>
+      </div>
+    </div>
+
+    <!-- Slide indicators -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      <span class="slide-dot active"></span>
+      <span class="slide-dot"></span>
+      <span class="slide-dot"></span>
+      <span class="slide-dot"></span>
+    </div>
+  </section>
+
+  <!-- ===================== STATS STRIP ===================== -->
+  <section class="bg-brand-dark2 border-y border-white/5 py-6">
+    <div class="max-w-5xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div data-aos="fade-up" data-aos-delay="100">
+        <p class="text-3xl font-bold text-brand-red">30+</p>
+        <p class="text-white/50 text-sm mt-1">Tahun Pengalaman</p>
+      </div>
+      <div data-aos="fade-up" data-aos-delay="200">
+        <p class="text-3xl font-bold text-brand-red">500+</p>
+        <p class="text-white/50 text-sm mt-1">Proyek Selesai</p>
+      </div>
+      <div data-aos="fade-up" data-aos-delay="300">
+        <p class="text-3xl font-bold text-brand-red">6</p>
+        <p class="text-white/50 text-sm mt-1">Crew Profesional</p>
+      </div>
+      <div data-aos="fade-up" data-aos-delay="400">
+        <p class="text-3xl font-bold text-brand-red">100%</p>
+        <p class="text-white/50 text-sm mt-1">Klien Puas</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about" class="py-24 bg-brand-black">
+    <div class="max-w-7xl mx-auto px-4">
+
+      <!-- About Us -->
+      <div class="grid lg:grid-cols-2 gap-16 items-center mb-24">
+        <div data-aos="fade-right">
+          <p class="text-brand-red text-xs font-semibold tracking-widest uppercase mb-3">Tentang Kami</p>
+          <h2 class="text-4xl font-bold text-white mb-6 leading-tight">Lebih dari <span class="text-brand-red">30
+              Tahun</span> Merekam Kisah</h2>
+          <p class="text-white/60 leading-relaxed mb-4">
+            Berawal pada tahun 1992 dari sebuah ketertarikan melihat seorang fotografer beraksi, rasa penasaran itu
+            tumbuh menjadi hobi dan akhirnya profesi. Berbekal sebuah kamera di rumah, saya terus berlatih dan mendalami
+            dunia fotografi.
+          </p>
+          <p class="text-white/60 leading-relaxed mb-8">
+            Kini, bersama lima rekan yang penuh semangat, lahirlah <span class="text-white font-semibold">Ranu Wijaya
+              Production</span>. Tidak hanya mahir dalam fotografi, kami berkembang menyediakan layanan Wedding
+            Organizer (WO) dan dokumentasi video multi-cam (HD).
+          </p>
+          <a href="https://wa.me/6287765486499" target="_blank"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-brand-red hover:bg-brand-light text-white font-semibold rounded-full transition-all duration-300">
+            <i class="fa fa-whatsapp"></i> Konsultasi Gratis
+          </a>
+        </div>
+        <div data-aos="fade-left" class="relative">
+          <img src="img/khataman.webp" alt="Tim RWP" class="w-full h-80 object-cover rounded-2xl">
+          <div
+            class="absolute -bottom-4 -left-4 w-28 h-28 bg-brand-red rounded-2xl flex flex-col items-center justify-center shadow-xl shadow-red-900/30">
+            <p class="text-3xl font-bold text-white">30+</p>
+            <p class="text-white/70 text-xs text-center">Tahun Pengalaman</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visi & Misi -->
+      <div class="grid md:grid-cols-2 gap-6" data-aos="fade-up">
+        <div
+          class="bg-brand-dark2 border border-white/5 rounded-2xl p-8 hover:border-brand-red/30 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-brand-red/10 flex items-center justify-center mb-5">
+            <i class="fa fa-eye text-brand-red text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Visi</h3>
+          <p class="text-white/60 leading-relaxed">
+            Menjadi studio foto & video terdepan dan terpercaya dengan menghadirkan layanan dokumentasi berkualitas
+            tinggi yang melampaui ekspektasi pelanggan, diiringi profesionalisme dan keramahan.
+          </p>
+        </div>
+        <div
+          class="bg-brand-dark2 border border-white/5 rounded-2xl p-8 hover:border-brand-red/30 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-brand-red/10 flex items-center justify-center mb-5">
+            <i class="fa fa-bullseye text-brand-red text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Misi</h3>
+          <p class="text-white/60 leading-relaxed">
+            Memberikan dokumentasi visual berkelas dengan teknologi mutakhir. Merangkul pelanggan sebagai mitra dengan
+            solusi adaptif dan kreatif, serta terus mengasah keahlian tim agar selalu relevan dengan tren industri.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== PORTFOLIO ===================== -->
+  <section id="portofolio" class="py-24 bg-brand-dark2">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-14" data-aos="fade-up">
+        <p class="text-brand-red text-xs font-semibold tracking-widest uppercase mb-3">Karya Kami</p>
+        <h2 class="text-4xl font-bold text-white">Portofolio</h2>
+        <p class="text-white/50 mt-3">Setiap momen yang kami abadikan adalah sebuah karya</p>
+      </div>
+
+      <!-- Photo Grid -->
+      <h3 class="text-lg font-semibold text-white/80 mb-5 flex items-center gap-2">
+        <span class="w-1 h-5 bg-brand-red rounded-full inline-block"></span>Fotografi
+      </h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12">
+        <!-- Cards (hover-reveal title) -->
+        <div class="porto-item" style="animation-delay:0.1s" data-bs-toggle="modal" data-target="#m1"
+          onclick="openModal('img/wisuda2.webp','Wisuda')">
+          <img src="img/wisuda2.webp" loading="lazy" alt="Wisuda" class="porto-img">
+          <div class="porto-overlay"><span>Wisuda</span></div>
+        </div>
+        <div class="porto-item" style="animation-delay:0.2s" onclick="openModal('img/meet.webp','Corporate Meeting')">
+          <img src="img/meet.webp" loading="lazy" alt="Meeting" class="porto-img">
+          <div class="porto-overlay"><span>Corporate Meeting</span></div>
+        </div>
+        <div class="porto-item" style="animation-delay:0.3s" onclick="openModal('img/wedding1.webp','Wedding')">
+          <img src="img/wedding1.webp" loading="lazy" alt="Wedding" class="porto-img">
+          <div class="porto-overlay"><span>Wedding</span></div>
+        </div>
+        <div class="porto-item" style="animation-delay:0.4s" onclick="openModal('img/prewedding.webp','Pre-Wedding')">
+          <img src="img/prewedding.webp" loading="lazy" alt="Prewedding" class="porto-img">
+          <div class="porto-overlay"><span>Pre-Wedding</span></div>
+        </div>
+        <div class="porto-item" style="animation-delay:0.5s" onclick="openModal('img/outbond.webp','Outbond & Tour')">
+          <img src="img/outbond.webp" loading="lazy" alt="Outbond" class="porto-img">
+          <div class="porto-overlay"><span>Outbond & Tour</span></div>
+        </div>
+        <div class="porto-item" style="animation-delay:0.6s"
+          onclick="openModal('img/7437ART.webp','Khataman Al-Qur\'an')">
+          <img src="img/7437ART.webp" loading="lazy" alt="Khataman" class="porto-img">
+          <div class="porto-overlay"><span>Khataman Al-Qur'an</span></div>
+        </div>
+        <div class="porto-item" style="animation-delay:0.7s" onclick="openModal('img/2614.webp','Family Gathering')">
+          <img src="img/2614.webp" loading="lazy" alt="Family" class="porto-img">
+          <div class="porto-overlay"><span>Family Gathering</span></div>
+        </div>
+        <div class="porto-item" style="animation-delay:0.8s" onclick="openModal('img/khataman2.webp','Pengajian')">
+          <img src="img/khataman2.webp" loading="lazy" alt="Pengajian" class="porto-img">
+          <div class="porto-overlay"><span>Pengajian</span></div>
+        </div>
+      </div>
+
+      <!-- Image Lightbox Modal -->
+      <div id="imgModal"
+        class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/90 backdrop-blur-sm p-4"
+        onclick="closeModal()">
+        <div class="relative max-w-4xl w-full" onclick="event.stopPropagation()">
+          <button onclick="closeModal()"
+            class="absolute -top-10 right-0 text-white/70 hover:text-brand-red transition text-3xl">&times;</button>
+          <img id="modalImg" src="" alt="" class="w-full h-auto max-h-[80vh] object-contain rounded-xl">
+          <p id="modalCaption" class="text-white/60 text-center mt-3 text-sm"></p>
+        </div>
+      </div>
+
+      <!-- Video Grid -->
+      <h3 class="text-lg font-semibold text-white/80 mb-5 flex items-center gap-2">
+        <span class="w-1 h-5 bg-brand-red rounded-full inline-block"></span>Videografi
+      </h3>
+      <div class="grid md:grid-cols-2 gap-5">
+        <div class="bg-brand-gray rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+          <div class="aspect-video">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/kDfCZzdHZd8" title="Khataman"
+              frameborder="0" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="p-4">
+            <h5 class="font-semibold text-white">Khataman Al-Qur'an</h5>
+            <p class="text-white/50 text-sm mt-1">Live streaming dan dokumentasi acara majelis secara profesional.</p>
+          </div>
+        </div>
+        <div class="bg-brand-gray rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+          <div class="aspect-video">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dupzhwOfMyE" title="Pengajian"
+              frameborder="0" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="p-4">
+            <h5 class="font-semibold text-white">Liputan Pengajian</h5>
+            <p class="text-white/50 text-sm mt-1">Visualisasi jernih dan audio berkualitas untuk dakwah.</p>
+          </div>
+        </div>
+        <div class="bg-brand-gray rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+          <div class="aspect-video">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/sOvwzEyh5Is" title="Iklan" frameborder="0"
+              allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="p-4">
+            <h5 class="font-semibold text-white">Iklan Produk Lokal</h5>
+            <p class="text-white/50 text-sm mt-1">Video komersial untuk meningkatkan nilai jual brand lokal.</p>
+          </div>
+        </div>
+        <div class="bg-brand-gray rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+          <div class="aspect-video">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/lKx9yyQ9P50" title="Musik" frameborder="0"
+              allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="p-4">
+            <h5 class="font-semibold text-white">Musik Tradisional Sasak</h5>
+            <p class="text-white/50 text-sm mt-1">Pelestarian seni lokal melalui produksi video kreatif.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SERVICES ===================== -->
+  <section id="service" class="py-24 bg-brand-black">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-14" data-aos="fade-up">
+        <p class="text-brand-red text-xs font-semibold tracking-widest uppercase mb-3">Apa yang Kami Tawarkan</p>
+        <h2 class="text-4xl font-bold text-white">Layanan Kami</h2>
+        <p class="text-white/50 mt-3">Solusi lengkap dokumentasi & multimedia</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+        <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="service-icon"><i class="fa fa-heart"></i></div>
+          <h4>Wedding</h4>
+          <p>Dokumentasi pernikahan sakral secara sinematik — kenangan abadi seumur hidup.</p>
+        </div>
+
+        <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="service-icon"><i class="fa fa-video-camera"></i></div>
+          <h4>Live Streaming</h4>
+          <p>Broadcasting multi-camera ke YouTube, Zoom, atau platform lainnya secara real-time.</p>
+        </div>
+
+        <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="service-icon"><i class="fa fa-plane"></i></div>
+          <h4>Tour & Outbound</h4>
+          <p>Dokumentasikan petualangan dan gathering perusahaan dengan hasil maksimal.</p>
+        </div>
+
+        <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="service-icon"><i class="fa fa-building"></i></div>
+          <h4>Company Profile</h4>
+          <p>Tingkatkan kredibilitas bisnis lewat video company profile yang elegan & informatif.</p>
+        </div>
+
+        <div class="service-card" data-aos="fade-up" data-aos-delay="500">
+          <div class="service-icon"><i class="fa fa-book"></i></div>
+          <h4>Acara Keagamaan</h4>
+          <p>Khataman, pengajian, dan hajatan yang terekam penuh khidmat dan jernih.</p>
+        </div>
+
+        <div class="service-card" data-aos="fade-up" data-aos-delay="600">
+          <div class="service-icon"><i class="fa fa-users"></i></div>
+          <h4>Family Gathering</h4>
+          <p>Keseruan keluarga terbingkai manis tanpa satupun momen yang terlewatkan.</p>
+        </div>
+
+        <div class="service-card" data-aos="fade-up" data-aos-delay="700">
+          <div class="service-icon"><i class="fa fa-handshake-o"></i></div>
+          <h4>Meeting & Seminar</h4>
+          <p>Rekam momen penting untuk arsip, publikasi resmi, atau kelas online.</p>
+        </div>
+
+        <div class="service-card" data-aos="fade-up" data-aos-delay="800">
+          <div class="service-icon"><i class="fa fa-laptop"></i></div>
+          <h4>IT Services</h4>
+          <p>Install ulang PC, instalasi software kreatif, cleaning, dan troubleshooting.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CREW ===================== -->
+  <section id="crew" class="py-24 relative overflow-hidden"
+    style="background: linear-gradient(135deg, #0d0d0d 0%, #1a0608 50%, #0d0d0d 100%);">
+    <!-- Decorative red glow -->
+    <div
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-red/5 rounded-full blur-3xl pointer-events-none">
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 relative z-10">
+      <div class="text-center mb-14" data-aos="fade-up">
+        <p class="text-brand-red text-xs font-semibold tracking-widest uppercase mb-3">Orang-orang Hebat</p>
+        <h2 class="text-4xl font-bold text-white">Tim Kami</h2>
+        <p class="text-white/50 mt-3">Para profesional kreatif di balik setiap karya</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
+
+        <div class="crew-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="crew-photo-wrap">
+            <img src="img/ranu.webp" loading="lazy" alt="Ranu Wijaya" class="crew-photo">
+          </div>
+          <h5>Ranu Wijaya</h5>
+          <p>Owner & Director</p>
+          <div class="crew-socials">
+            <a href="https://www.facebook.com/ranu.wijaya.7374" target="_blank"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+          </div>
+        </div>
+
+        <div class="crew-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="crew-photo-wrap">
+            <img src="img/2.webp" loading="lazy" alt="Aar Saputra" class="crew-photo">
+          </div>
+          <h5>Aar Saputra</h5>
+          <p>vMix Operator & Dev</p>
+          <div class="crew-socials">
+            <a href="https://www.facebook.com/aar.saputra.3154" target="_blank"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="crew-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="crew-photo-wrap">
+            <img src="img/3.webp" loading="lazy" alt="Ridho" class="crew-photo">
+          </div>
+          <h5>Ridho Aditia</h5>
+          <p>Head Photographer</p>
+          <div class="crew-socials">
+            <a href="#"><i class="fa fa-instagram"></i></a>
+          </div>
+        </div>
+
+        <div class="crew-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="crew-photo-wrap">
+            <img src="img/pito.webp" loading="lazy" alt="Alfito" class="crew-photo">
+          </div>
+          <h5>Alfito Deanova</h5>
+          <p>Cameraman</p>
+          <div class="crew-socials">
+            <a href="#"><i class="fa fa-instagram"></i></a>
+          </div>
+        </div>
+
+        <div class="crew-card" data-aos="fade-up" data-aos-delay="500">
+          <div class="crew-photo-wrap">
+            <img src="img/deval.webp" loading="lazy" alt="Devaldi" class="crew-photo">
+          </div>
+          <h5>Devaldi Gensua</h5>
+          <p>Cameraman</p>
+          <div class="crew-socials">
+            <a href="https://www.facebook.com/devaldigensua.gentsua" target="_blank"><i class="fa fa-facebook"></i></a>
+          </div>
+        </div>
+
+        <div class="crew-card" data-aos="fade-up" data-aos-delay="600">
+          <div class="crew-photo-wrap">
+            <img src="img/yayan.webp" loading="lazy" alt="Septian" class="crew-photo">
+          </div>
+          <h5>Moh. Septian</h5>
+          <p>Editor & Cameraman</p>
+          <div class="crew-socials">
+            <a href="#"><i class="fa fa-instagram"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section id="kontak" class="py-24 bg-brand-dark2">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid lg:grid-cols-2 gap-14 items-start">
+
+        <!-- Info -->
+        <div data-aos="fade-right">
+          <p class="text-brand-red text-xs font-semibold tracking-widest uppercase mb-3">Hubungi Kami</p>
+          <h2 class="text-4xl font-bold text-white mb-6">Let's <span class="text-brand-red">Connect</span></h2>
+          <p class="text-white/60 mb-8">Konsultasikan konsep acara Anda kepada kami. Kami siap mewujudkan visual impian
+            Anda.</p>
+
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-4 p-4 bg-brand-gray rounded-xl border border-white/5">
+              <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center shrink-0">
+                <i class="fa fa-map-marker text-brand-red"></i>
+              </div>
+              <div>
+                <p class="text-white font-semibold text-sm">Workshop</p>
+                <p class="text-white/50 text-sm leading-relaxed">Gg. Jeruk 1 Jl. Gotong Royong No. 13<br>Pejeruk,
+                  Ampenan, Mataram 83125</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 bg-brand-gray rounded-xl border border-white/5">
+              <div class="w-10 h-10 bg-brand-red/10 rounded-lg flex items-center justify-center shrink-0">
+                <i class="fa fa-phone text-brand-red"></i>
+              </div>
+              <div>
+                <p class="text-white font-semibold text-sm">WhatsApp / Telepon</p>
+                <a href="https://wa.me/6287765486499"
+                  class="text-white/50 text-sm hover:text-brand-red transition">0877-6548-6499</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Media Buttons -->
+          <div class="flex flex-wrap gap-3">
+            <a href="https://wa.me/6287765486499" target="_blank" class="socmed-btn bg-green-600 hover:bg-green-500">
+              <i class="fa fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="https://www.instagram.com/wijaya_production77/" target="_blank" class="socmed-btn"
+              style="background:#E1306C;">
+              <i class="fa fa-instagram"></i> Instagram
+            </a>
+            <a href="https://www.youtube.com/@wIijayaproduction00" target="_blank"
+              class="socmed-btn bg-red-600 hover:bg-red-500">
+              <i class="fa fa-youtube-play"></i> YouTube
+            </a>
+            <a href="https://www.facebook.com/ranuwijaya2719/" target="_blank" class="socmed-btn"
+              style="background:#1877F2;">
+              <i class="fa fa-facebook"></i> Facebook
+            </a>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div data-aos="fade-left">
+          <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+            <iframe class="w-full" style="height:420px;"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.2498026353237!2d116.08315707430309!3d-8.571962686967382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dcdc0619e291705%3A0x85d987445593ed43!2sRanu%20Wijaya%20Production!5e0!3m2!1sid!2sid!4v1683602748198!5m2!1sid!2sid"
+              frameborder="0" allowfullscreen loading="lazy">
+            </iframe>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="bg-brand-black border-t border-white/5 py-10 text-center">
+    <div class="max-w-4xl mx-auto px-4">
+      <img src="img/logowp.png" alt="RWP" class="h-10 w-auto mx-auto mb-4 opacity-40 grayscale">
+      <p class="text-white/30 text-sm mb-1">
+        &copy; <span id="tahun">2024</span> Wijaya Production. All rights reserved.
+      </p>
+      <p class="text-white/20 text-xs">
+        Developed with <i class="fa fa-heart text-brand-red"></i> by
+        <a href="https://www.facebook.com/profile.php?id=61553240002855&mibextid=ZbWKwL" target="_blank"
+          class="text-white/40 hover:text-brand-red transition font-semibold">Aar Saputra</a>
       </p>
     </div>
   </footer>
 
   <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
   <script>
-    // Initialize Animations
-    AOS.init({ once: true, offset: 50, duration: 800 });
-
-    // Dynamic Year
+    AOS.init({ once: true, offset: 60, duration: 750 });
     document.getElementById("tahun").textContent = new Date().getFullYear();
 
-    // Loading & Popup Behavior
-    document.addEventListener("DOMContentLoaded", function () {
-      const loader = document.getElementById("loadingOverlay");
-      const popup = document.getElementById("popupContainer");
-      const closeBtn = document.getElementById("closePopupBtn");
+    /* ---- LOADING VIDEO ---- */
+    const loader = document.getElementById("loadingOverlay");
+    const loadVid = loader.querySelector(".loading-video");
+    function hideLoader() {
+      loader.style.opacity = "0";
+      loader.style.transition = "opacity 0.6s ease";
+      setTimeout(() => loader.style.display = "none", 650);
+    }
+    const fallback = setTimeout(hideLoader, 8000);
+    if (loadVid) {
+      loadVid.addEventListener("ended", () => { clearTimeout(fallback); hideLoader(); });
+      loadVid.addEventListener("error", () => { clearTimeout(fallback); hideLoader(); });
+    } else { hideLoader(); }
 
-      // Wait for video to finish playing, THEN hide the overlay
-      const loadingVideo = loader.querySelector(".loading-video");
-      function hideLoader() {
-        loader.classList.add("fade-out");
-        setTimeout(() => loader.style.display = "none", 600);
-      }
-
-      // Fallback: hide after 8s max (in case video errors or stalls)
-      const fallbackTimer = setTimeout(hideLoader, 8000);
-
-      if (loadingVideo) {
-        // Hide when video naturally ends
-        loadingVideo.addEventListener("ended", () => {
-          clearTimeout(fallbackTimer);
-          hideLoader();
-        });
-
-        // If video can't load/play at all, fall through to fallback
-        loadingVideo.addEventListener("error", () => {
-          clearTimeout(fallbackTimer);
-          hideLoader();
-        });
-      } else {
-        // No video element found — hide immediately
-        clearTimeout(fallbackTimer);
-        hideLoader();
-      }
-
-      // Show popup after scrolling or delay
-      let popupShown = false;
-      window.addEventListener("scroll", () => {
-        if (!popupShown && window.scrollY > 800) {
-          popup.style.display = "block";
-          // short delay to let display:block apply before opacity transition
-          setTimeout(() => popup.classList.add("show"), 50);
-          popupShown = true;
-        }
-      });
-
-      // Alternatively show after 5s if user doesn't scroll
-      setTimeout(() => {
-        if (!popupShown) {
-          popup.style.display = "block";
-          setTimeout(() => popup.classList.add("show"), 50);
-          popupShown = true;
-        }
-      }, 5000);
-
-      // Close popup
-      closeBtn.addEventListener("click", () => {
-        popup.classList.remove("show");
-        setTimeout(() => popup.style.display = "none", 300);
-      });
-
-      // Navbar transparency handling on scroll
-      const navbar = document.querySelector('.premium-nav');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
-        }
-      });
+    /* ---- POPUP ---- */
+    const popup = document.getElementById("popupContainer");
+    const closeBtn = document.getElementById("closePopupBtn");
+    let popupShown = false;
+    function showPopup() {
+      if (popupShown) return;
+      popupShown = true;
+      popup.classList.remove("hidden");
+      popup.classList.add("flex");
+      requestAnimationFrame(() => popup.classList.add("show"));
+    }
+    window.addEventListener("scroll", () => { if (window.scrollY > 800) showPopup(); });
+    setTimeout(showPopup, 5000);
+    closeBtn.addEventListener("click", () => {
+      popup.classList.remove("show");
+      setTimeout(() => { popup.classList.add("hidden"); popup.classList.remove("flex"); }, 350);
     });
+
+    /* ---- NAVBAR scroll effect ---- */
+    const navbar = document.getElementById("navbar");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 60) {
+        navbar.classList.add("navbar-scrolled");
+      } else {
+        navbar.classList.remove("navbar-scrolled");
+      }
+    });
+
+    /* ---- MOBILE MENU ---- */
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    menuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+      mobileMenu.classList.toggle("flex");
+    });
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+      mobileMenu.classList.add("hidden");
+      mobileMenu.classList.remove("flex");
+    }));
+
+    /* ---- HERO SLIDER ---- */
+    const slides = document.querySelectorAll(".hero-slide");
+    const dots = document.querySelectorAll(".slide-dot");
+    let current = 0;
+    function goTo(n) {
+      slides[current].classList.remove("active");
+      dots[current].classList.remove("active");
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add("active");
+      dots[current].classList.add("active");
+    }
+    setInterval(() => goTo(current + 1), 4500);
+    dots.forEach((d, i) => d.addEventListener("click", () => goTo(i)));
+
+    /* ---- LIGHTBOX ---- */
+    const modal = document.getElementById("imgModal");
+    const mImg = document.getElementById("modalImg");
+    const mCap = document.getElementById("modalCaption");
+    function openModal(src, cap) {
+      mImg.src = src; mCap.textContent = cap;
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+    function closeModal() {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
   </script>
+
 </body>
 
 </html>
